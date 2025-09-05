@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento - Estrelas Bartender</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para a página de agendamento */
+        .booking-container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .booking-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .booking-header h2 {
+            color: #1d3557;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .booking-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        
+        .booking-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .booking-form input,
+        .booking-form select,
+        .booking-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .booking-form input:focus,
+        .booking-form select:focus,
+        .booking-form textarea:focus {
+            border-color: #1d3557;
+            outline: none;
+        }
+        
+        .booking-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .booking-form .btn-submit {
+            grid-column: span 2;
+            padding: 12px;
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .booking-form .btn-submit:hover {
+            background-color: #d62839;
+        }
+        
+        .booking-info {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        .booking-info h3 {
+            color: #1d3557;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .info-card {
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f1faee;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-card h4 {
+            display: flex;
+            align-items: center;
+            color: #1d3557;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .info-card h4 i {
+            margin-right: 10px;
+            color: #e63946;
+        }
+        
+        .info-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .bartenders {
+            margin-top: 40px;
+        }
+        
+        .bartenders h3 {
+            color: #1d3557;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .bartender-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .bartender-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .bartender-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .bartender-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            overflow: hidden;
+            border: 3px solid #e63946;
+        }
+        
+        .bartender-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .bartender-card h4 {
+            color: #1d3557;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .bartender-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .bartender-card .specialties {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .bartender-card .specialty {
+            background-color: #f1faee;
+            color: #1d3557;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .bartender-card .btn-select {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: transparent;
+            color: #1d3557;
+            border: 1px solid #1d3557;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .bartender-card .btn-select:hover {
+            background-color: #1d3557;
+            color: #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .booking-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            
+            .booking-form .btn-submit {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Estrelas Bartender</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="drinks.html">Carta de Drinks</a></li>
+                    <li><a href="agendamento.html">Agendamento</a></li>
+                    <li><a href="faq.html">Dúvidas</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="cadastro.html" class="btn btn-register">Cadastro</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="booking-container">
+                <div class="booking-header">
+                    <h2>Agende uma Conversa</h2>
+                    <p>Converse com nossos bartenders profissionais e planeje seu evento</p>
+                </div>
+                
+                <form class="booking-form" id="booking-form">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="data">Data Preferida</label>
+                        <input type="date" id="data" name="data" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="horario">Horário</label>
+                        <select id="horario" name="horario" required>
+                            <option value="">Selecione um horário</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bartender">Bartender</label>
+                        <select id="bartender" name="bartender" required>
+                            <option value="">Selecione um bartender</option>
+                            <option value="Carlos">Carlos</option>
+                            <option value="Ana">Ana</option>
+                            <option value="Rafael">Rafael</option>
+                            <option value="Juliana">Juliana</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="tipo-evento">Tipo de Evento</label>
+                        <select id="tipo-evento" name="tipo-evento" required>
+                            <option value="">Selecione o tipo de evento</option>
+                            <option value="Casamento">Casamento</option>
+                            <option value="Aniversário">Aniversário</option>
+                            <option value="Corporativo">Evento Corporativo</option>
+                            <option value="Formatura">Formatura</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="mensagem">Detalhes do Evento</label>
+                        <textarea id="mensagem" name="mensagem" placeholder="Conte-nos mais sobre seu evento, número de convidados, localização, etc."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Agendar Conversa</button>
+                </form>
+                
+                <div class="booking-info">
+                    <h3>Informações Importantes</h3>
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <h4><i class="fas fa-info-circle"></i> Sobre o Agendamento</h4>
+                            <p>A conversa inicial tem duração de aproximadamente 30 minutos e pode ser realizada por videochamada ou presencialmente em nosso escritório.</p>
+                        </div>
+                        <div class="info-card">
+                            <h4><i class="fas fa-clock"></i> Confirmação</h4>
+                            <p>Após o envio do formulário, você receberá um e-mail de confirmação em até 24 horas com os detalhes da sua conversa.</p>
+                        </div>
+                        <div class="info-card">
+                            <h4><i class="fas fa-calendar-alt"></i> Reagendamento</h4>
+                            <p>Caso precise reagendar, entre em contato conosco com pelo menos 24 horas de antecedência pelo telefone ou e-mail.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bartenders">
+                    <h3>Conheça Nossos Bartenders</h3>
+                    <div class="bartender-cards">
+                        <div class="bartender-card">
+                            <div class="bartender-img">
+                                <!-- Placeholder para imagem do bartender -->
+                                <img src="https://via.placeholder.com/150" alt="Carlos">
+                            </div>
+                            <h4>Carlos</h4>
+                            <p>10 anos de experiência</p>
+                            <div class="specialties">
+                                <span class="specialty">Clássicos</span>
+                                <span class="specialty">Gin</span>
+                                <span class="specialty">Whisky</span>
+                            </div>
+                            <button class="btn-select" data-bartender="Carlos">Selecionar</button>
+                        </div>
+                        
+                        <div class="bartender-card">
+                            <div class="bartender-img">
+                                <!-- Placeholder para imagem do bartender -->
+                                <img src="https://via.placeholder.com/150" alt="Ana">
+                            </div>
+                            <h4>Ana</h4>
+                            <p>8 anos de experiência</p>
+                            <div class="specialties">
+                                <span class="specialty">Coquetéis</span>
+                                <span class="specialty">Rum</span>
+                                <span class="specialty">Tequila</span>
+                            </div>
+                            <button class="btn-select" data-bartender="Ana">Selecionar</button>
+                        </div>
+                        
+                        <div class="bartender-card">
+                            <div class="bartender-img">
+                                <!-- Placeholder para imagem do bartender -->
+                                <img src="https://via.placeholder.com/150" alt="Rafael">
+                            </div>
+                            <h4>Rafael</h4>
+                            <p>12 anos de experiência</p>
+                            <div class="specialties">
+                                <span class="specialty">Moleculares</span>
+                                <span class="specialty">Vodka</span>
+                                <span class="specialty">Cachaça</span>
+                            </div>
+                            <button class="btn-select" data-bartender="Rafael">Selecionar</button>
+                        </div>
+                        
+                        <div class="bartender-card">
+                            <div class="bartender-img">
+                                <!-- Placeholder para imagem do bartender -->
+                                <img src="https://via.placeholder.com/150" alt="Juliana">
+                            </div>
+                            <h4>Juliana</h4>
+                            <p>7 anos de experiência</p>
+                            <div class="specialties">
+                                <span class="specialty">Sem Álcool</span>
+                                <span class="specialty">Licores</span>
+                                <span class="specialty">Café</span>
+                            </div>
+                            <button class="btn-select" data-bartender="Juliana">Selecionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Estrelas Bartender</h3>
+                    <p>Experiência única em drinks e coquetéis</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="drinks.html">Carta de Drinks</a></li>
+                        <li><a href="agendamento.html">Agendamento</a></li>
+                        <li><a href="faq.html">Dúvidas</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> contato@estrelasbartender.com</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <div class="social-media">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Estrelas Bartender. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="chat-widget">
+        <div class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h4>Atendimento 24h</h4>
+                <span class="close-chat"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="chat-body">
+                <div class="chat-message bot">
+                    <div class="message-content">
+                        <p>Olá! Sou Lucas, como posso ajudar você hoje?</p>
+                    </div>
+                </div>
+                <!-- Mensagens do chat aparecerão aqui -->
+            </div>
+            <div class="chat-footer">
+                <input type="text" placeholder="Digite sua mensagem...">
+                <button class="send-message"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Script específico para a página de agendamento
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookingForm = document.getElementById('booking-form');
+            const bartenderSelect = document.getElementById('bartender');
+            const selectButtons = document.querySelectorAll('.btn-select');
+            
+            // Máscara para o campo de telefone
+            const telefoneInput = document.getElementById('telefone');
+            
+            if (telefoneInput) {
+                telefoneInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    
+                    if (value.length > 0) {
+                        // Formato: (XX) XXXXX-XXXX
+                        value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+                        value = value.replace(/(\d{5})(\d)/, '$1-$2');
+                        value = value.substring(0, 15);
+                    }
+                    
+                    e.target.value = value;
+                });
+            }
+            
+            // Definir data mínima como hoje
+            const dataInput = document.getElementById('data');
+            if (dataInput) {
+                const hoje = new Date();
+                const ano = hoje.getFullYear();
+                let mes = hoje.getMonth() + 1;
+                let dia = hoje.getDate();
+                
+                // Formatar mês e dia com zero à esquerda se necessário
+                if (mes < 10) mes = '0' + mes;
+                if (dia < 10) dia = '0' + dia;
+                
+                const dataMinima = `${ano}-${mes}-${dia}`;
+                dataInput.setAttribute('min', dataMinima);
+            }
+            
+            // Selecionar bartender pelos cards
+            if (selectButtons.length > 0 && bartenderSelect) {
+                selectButtons.forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const bartenderName = this.getAttribute('data-bartender');
+                        
+                        // Selecionar o bartender no dropdown
+                        for (let i = 0; i < bartenderSelect.options.length; i++) {
+                            if (bartenderSelect.options[i].value === bartenderName) {
+                                bartenderSelect.selectedIndex = i;
+                                break;
+                            }
+                        }
+                        
+                        // Destacar o card selecionado
+                        document.querySelectorAll('.bartender-card').forEach(card => {
+                            card.classList.remove('selected');
+                        });
+                        
+                        this.closest('.bartender-card').classList.add('selected');
+                        
+                        // Rolar até o formulário
+                        document.querySelector('.booking-form').scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
+            }
+            
+            // Envio do formulário
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Validação do formulário
+                    const nome = document.getElementById('nome').value;
+                    const email = document.getElementById('email').value;
+                    const telefone = document.getElementById('telefone').value;
+                    const data = document.getElementById('data').value;
+                    const horario = document.getElementById('horario').value;
+                    const bartender = document.getElementById('bartender').value;
+                    const tipoEvento = document.getElementById('tipo-evento').value;
+                    
+                    if (!nome || !email || !telefone || !data || !horario || !bartender || !tipoEvento) {
+                        alert('Por favor, preencha todos os campos obrigatórios.');
+                        return;
+                    }
+                    
+                    // Simulação de envio do formulário
+                    alert('Agendamento realizado com sucesso! Você receberá um e-mail de confirmação em breve.');
+                    
+                    // Limpar formulário
+                    bookingForm.reset();
+                    
+                    // Remover seleção dos cards
+                    document.querySelectorAll('.bartender-card').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

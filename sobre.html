@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - Estrelas Bartender</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para a página Sobre Nós */
+        .about-header {
+            text-align: center;
+            padding: 80px 0 40px;
+            background-color: #1d3557;
+            color: #fff;
+        }
+        
+        .about-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .about-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .about-section {
+            padding: 60px 0;
+        }
+        
+        .about-section h3 {
+            color: #1d3557;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            line-height: 1.7;
+            color: #444;
+        }
+        
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .mission-values {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .mission-value-card {
+            flex: 1;
+            min-width: 250px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .mission-value-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .mission-value-card i {
+            font-size: 2.5rem;
+            color: #e63946;
+            margin-bottom: 20px;
+        }
+        
+        .mission-value-card h4 {
+            color: #1d3557;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .mission-value-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .team-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .team-member {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-member-image {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .team-member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .team-member:hover .team-member-image img {
+            transform: scale(1.1);
+        }
+        
+        .team-member-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .team-member-info h4 {
+            color: #1d3557;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .team-member-info p.role {
+            color: #e63946;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .team-member-info p.bio {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .team-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background-color: #f1faee;
+            color: #1d3557;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .team-social a:hover {
+            background-color: #1d3557;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+        
+        .timeline-section {
+            padding: 60px 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #1d3557;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: 4px solid #e63946;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item.left {
+            left: 0;
+        }
+        
+        .timeline-item.right {
+            left: 50%;
+        }
+        
+        .timeline-item.left::after {
+            right: -10px;
+        }
+        
+        .timeline-item.right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .timeline-content h4 {
+            color: #1d3557;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content .date {
+            color: #e63946;
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .timeline-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .testimonial-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 40px auto 0;
+            position: relative;
+        }
+        
+        .testimonial-slide {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 0 20px;
+        }
+        
+        .testimonial-content {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .testimonial-content::before {
+            content: '\201C';
+            font-size: 4rem;
+            color: #e63946;
+            position: absolute;
+            left: -20px;
+            top: -20px;
+            opacity: 0.3;
+        }
+        
+        .testimonial-content p {
+            color: #444;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .testimonial-author-info h5 {
+            color: #1d3557;
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .testimonial-nav button {
+            background-color: transparent;
+            border: none;
+            color: #1d3557;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-nav button:hover {
+            color: #e63946;
+            transform: scale(1.2);
+        }
+        
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .testimonial-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-dot.active {
+            background-color: #1d3557;
+            transform: scale(1.3);
+        }
+        
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+            background-color: #1d3557;
+            color: #fff;
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .cta-btn {
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-btn-primary {
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+        }
+        
+        .cta-btn-primary:hover {
+            background-color: #d62f3d;
+            transform: translateY(-3px);
+        }
+        
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+        
+        .cta-btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                order: 1;
+            }
+            
+            .about-text {
+                order: 2;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item.right {
+                left: 0;
+            }
+            
+            .timeline-item.left::after,
+            .timeline-item.right::after {
+                left: 21px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Estrelas Bartender</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="drinks.html">Carta de Drinks</a></li>
+                    <li><a href="agendamento.html">Agendamento</a></li>
+                    <li><a href="faq.html">Dúvidas</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="cadastro.html" class="btn btn-register">Cadastro</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="about-header">
+        <div class="container">
+            <h2>Sobre Nós</h2>
+            <p>Conheça a história, missão e equipe por trás da Estrelas Bartender</p>
+        </div>
+    </div>
+
+    <main>
+        <!-- Seção Nossa História -->
+        <section class="about-section">
+            <div class="container">
+                <h3>Nossa História</h3>
+                
+                <div class="about-content">
+                    <div class="about-image">
+                        <img src="https://via.placeholder.com/600x400" alt="Estrelas Bartender História">
+                    </div>
+                    
+                    <div class="about-text">
+                        <p>A Estrelas Bartender nasceu em 2015 da paixão de dois amigos, Carlos e Mariana, por coquetéis artesanais e experiências gastronômicas memoráveis. Após anos trabalhando em bares renomados pelo Brasil e exterior, eles decidiram unir forças para criar um serviço que levasse a experiência de um bar de alta qualidade para eventos e residências.</p>
+                        
+                        <p>O que começou como um pequeno empreendimento atendendo festas de amigos e familiares rapidamente se transformou em uma empresa reconhecida pela excelência e criatividade. Hoje, a Estrelas Bartender é referência nacional em serviços de bartender para eventos, consultoria para bares e restaurantes, e workshops de coquetelaria.</p>
+                        
+                        <p>Ao longo dos anos, expandimos nossa equipe com profissionais talentosos e apaixonados, sempre mantendo nosso compromisso com a qualidade, inovação e atendimento personalizado que nos diferencia no mercado.</p>
+                    </div>
+                </div>
+                
+                <div class="mission-values">
+                    <div class="mission-value-card">
+                        <i class="fas fa-bullseye"></i>
+                        <h4>Missão</h4>
+                        <p>Proporcionar experiências únicas e memoráveis através da arte da coquetelaria, elevando momentos especiais com criatividade, qualidade e excelência no atendimento.</p>
+                    </div>
+                    
+                    <div class="mission-value-card">
+                        <i class="fas fa-eye"></i>
+                        <h4>Visão</h4>
+                        <p>Ser reconhecida como a principal referência em serviços de bartender no Brasil, inspirando uma cultura de apreciação à coquetelaria artesanal e experiências sensoriais.</p>
+                    </div>
+                    
+                    <div class="mission-value-card">
+                        <i class="fas fa-heart"></i>
+                        <h4>Valores</h4>
+                        <p>Excelência, criatividade, paixão, sustentabilidade, ética, respeito e compromisso com a satisfação dos nossos clientes em cada detalhe do nosso trabalho.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção Nossa Equipe -->
+        <section class="team-section">
+            <div class="container">
+                <h3>Nossa Equipe</h3>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="https://via.placeholder.com/300x300" alt="Lucas Silva">
+                        </div>
+                        <div class="team-member-info">
+                            <h4>Lucas Silva</h4>
+                            <p class="role">Bartender Chefe & Co-fundador</p>
+                            <p class="bio">Com mais de 10 anos de experiência em bares premiados no Brasil e exterior, Lucas traz criatividade e técnica impecável para cada criação.</p>
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="https://via.placeholder.com/300x300" alt="Sonia Martins">
+                        </div>
+                        <div class="team-member-info">
+                            <h4>Sonia Martins</h4>
+                            <p class="role">Bartender Sênior & Especialista em Gin</p>
+                            <p class="bio">Especialista em destilados e apaixonada por gin, Sonia é conhecida por suas combinações aromáticas surpreendentes e atenção aos detalhes.</p>
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="https://via.placeholder.com/300x300" alt="Carlos Mendes">
+                        </div>
+                        <div class="team-member-info">
+                            <h4>Carlos Mendes</h4>
+                            <p class="role">Diretor Criativo & Co-fundador</p>
+                            <p class="bio">Responsável pelo desenvolvimento de novos drinks e experiências, Carlos combina conhecimento técnico com uma visão inovadora de negócios.</p>
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="https://via.placeholder.com/300x300" alt="Mariana Costa">
+                        </div>
+                        <div class="team-member-info">
+                            <h4>Mariana Costa</h4>
+                            <p class="role">Gerente de Eventos & Co-fundadora</p>
+                            <p class="bio">Com formação em Gastronomia e Eventos, Mariana garante que cada experiência seja perfeita, do planejamento à execução.</p>
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-pinterest"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção Nossa Trajetória -->
+        <section class="timeline-section">
+            <div class="container">
+                <h3>Nossa Trajetória</h3>
+                
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h4>O Início da Jornada</h4>
+                            <span class="date">2015</span>
+                            <p>Fundação da Estrelas Bartender por Carlos e Mariana, atendendo pequenos eventos e festas particulares com drinks artesanais.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h4>Primeiro Grande Evento</h4>
+                            <span class="date">2016</span>
+                            <p>Contratados para um casamento de 300 pessoas, marcando nossa entrada no mercado de eventos de grande porte.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h4>Expansão da Equipe</h4>
+                            <span class="date">2017</span>
+                            <p>Contratação de novos bartenders, incluindo Lucas e Sonia, que trouxeram novas técnicas e visões para a empresa.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h4>Primeiro Workshop</h4>
+                            <span class="date">2018</span>
+                            <p>Lançamento do primeiro workshop de coquetelaria, expandindo nossos serviços para além dos eventos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h4>Prêmio de Inovação</h4>
+                            <span class="date">2019</span>
+                            <p>Reconhecidos com o prêmio de Inovação em Gastronomia por nossa abordagem criativa e sustentável.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h4>Consultoria para Bares</h4>
+                            <span class="date">2020</span>
+                            <p>Início dos serviços de consultoria para bares e restaurantes, compartilhando nossa expertise com o mercado.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h4>Lançamento do Site</h4>
+                            <span class="date">2021</span>
+                            <p>Lançamento da plataforma online com agendamento, catálogo de drinks e atendimento 24h.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h4>Expansão Nacional</h4>
+                            <span class="date">2022</span>
+                            <p>Início das operações em outras capitais brasileiras, levando nossa experiência para todo o país.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h4>Hoje</h4>
+                            <span class="date">2023</span>
+                            <p>Continuamos crescendo e inovando, sempre com o compromisso de proporcionar experiências únicas através da arte da coquetelaria.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção Depoimentos -->
+        <section class="testimonial-section">
+            <div class="container">
+                <h3>O Que Dizem Sobre Nós</h3>
+                
+                <div class="testimonial-slider">
+                    <div class="testimonial-slide active">
+                        <div class="testimonial-content">
+                            <p>"Contratei a Estrelas Bartender para meu casamento e foi uma das melhores decisões que tomei. Os drinks eram incríveis, o serviço impecável e os convidados não param de elogiar até hoje. Lucas e sua equipe são verdadeiros artistas!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://via.placeholder.com/60x60" alt="Ana Paula">
+                            <div class="testimonial-author-info">
+                                <h5>Ana Paula</h5>
+                                <p>Casamento em São Paulo</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide" style="display: none;">
+                        <div class="testimonial-content">
+                            <p>"Participei do workshop de gin tônica com a Sonia e foi uma experiência incrível! Aprendi muito sobre as diferentes variedades de gin, botânicos e técnicas de preparo. Recomendo para qualquer pessoa que queira aprofundar seus conhecimentos em coquetelaria."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://via.placeholder.com/60x60" alt="Ricardo Gomes">
+                            <div class="testimonial-author-info">
+                                <h5>Ricardo Gomes</h5>
+                                <p>Workshop de Gin Tônica</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide" style="display: none;">
+                        <div class="testimonial-content">
+                            <p>"Como proprietário de um restaurante, contratei a consultoria da Estrelas Bartender para renovar nosso menu de drinks e treinar nossa equipe. Os resultados foram impressionantes! As vendas de coquetéis aumentaram em 40% e nossos clientes estão encantados com as novas opções."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://via.placeholder.com/60x60" alt="Fernando Mello">
+                            <div class="testimonial-author-info">
+                                <h5>Fernando Mello</h5>
+                                <p>Proprietário do Restaurante Sabores</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-nav">
+                        <button class="prev-testimonial"><i class="fas fa-chevron-left"></i></button>
+                        <button class="next-testimonial"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    
+                    <div class="testimonial-dots">
+                        <span class="testimonial-dot active" data-index="0"></span>
+                        <span class="testimonial-dot" data-index="1"></span>
+                        <span class="testimonial-dot" data-index="2"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção Call to Action -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h3>Pronto para uma Experiência Única?</h3>
+                    <p>Seja para um evento especial, uma consultoria ou para aprender mais sobre a arte da coquetelaria, estamos aqui para transformar sua experiência em algo memorável.</p>
+                    <div class="cta-buttons">
+                        <a href="agendamento.html" class="cta-btn cta-btn-primary">Agendar Agora</a>
+                        <a href="contato.html" class="cta-btn cta-btn-secondary">Fale Conosco</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Estrelas Bartender</h3>
+                    <p>Experiência única em drinks e coquetéis</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="drinks.html">Carta de Drinks</a></li>
+                        <li><a href="agendamento.html">Agendamento</a></li>
+                        <li><a href="faq.html">Dúvidas</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> contato@estrelasbartender.com</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <div class="social-media">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Estrelas Bartender. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="chat-widget">
+        <div class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h4>Atendimento 24h</h4>
+                <span class="close-chat"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="chat-body">
+                <div class="chat-message bot">
+                    <div class="message-content">
+                        <p>Olá! Sou Lucas, como posso ajudar você hoje?</p>
+                    </div>
+                </div>
+                <!-- Mensagens do chat aparecerão aqui -->
+            </div>
+            <div class="chat-footer">
+                <input type="text" placeholder="Digite sua mensagem...">
+                <button class="send-message"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Script específico para a página Sobre Nós
+        document.addEventListener('DOMContentLoaded', function() {
+            // Slider de depoimentos
+            const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+            const testimonialDots = document.querySelectorAll('.testimonial-dot');
+            const prevButton = document.querySelector('.prev-testimonial');
+            const nextButton = document.querySelector('.next-testimonial');
+            let currentSlide = 0;
+            
+            function showSlide(index) {
+                // Esconder todos os slides
+                testimonialSlides.forEach(slide => {
+                    slide.style.display = 'none';
+                });
+                
+                // Remover classe ativa de todos os dots
+                testimonialDots.forEach(dot => {
+                    dot.classList.remove('active');
+                });
+                
+                // Mostrar o slide atual
+                testimonialSlides[index].style.display = 'block';
+                testimonialDots[index].classList.add('active');
+                currentSlide = index;
+            }
+            
+            // Evento para os dots
+            testimonialDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-index'));
+                    showSlide(slideIndex);
+                });
+            });
+            
+            // Evento para os botões de navegação
+            prevButton.addEventListener('click', function() {
+                let newIndex = currentSlide - 1;
+                if (newIndex < 0) {
+                    newIndex = testimonialSlides.length - 1;
+                }
+                showSlide(newIndex);
+            });
+            
+            nextButton.addEventListener('click', function() {
+                let newIndex = currentSlide + 1;
+                if (newIndex >= testimonialSlides.length) {
+                    newIndex = 0;
+                }
+                showSlide(newIndex);
+            });
+            
+            // Auto-rotação do slider
+            setInterval(function() {
+                let newIndex = currentSlide + 1;
+                if (newIndex >= testimonialSlides.length) {
+                    newIndex = 0;
+                }
+                showSlide(newIndex);
+            }, 8000);
+            
+            // Iniciar com o primeiro slide
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Estrelas Bartender</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para a página de login */
+        .auth-container {
+            max-width: 450px;
+            margin: 100px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .auth-header h2 {
+            color: #1d3557;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .auth-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .auth-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .auth-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .auth-form input:focus {
+            border-color: #1d3557;
+            outline: none;
+        }
+        
+        .auth-form .forgot-password {
+            text-align: right;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+        
+        .auth-form .forgot-password a {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .auth-form .forgot-password a:hover {
+            color: #e63946;
+        }
+        
+        .auth-form .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .auth-form .btn-submit:hover {
+            background-color: #d62839;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .auth-footer a {
+            color: #e63946;
+            font-weight: 500;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-login {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .social-login p {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .social-login p::before,
+        .social-login p::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 35%;
+            height: 1px;
+            background-color: #ddd;
+        }
+        
+        .social-login p::before {
+            left: 0;
+        }
+        
+        .social-login p::after {
+            right: 0;
+        }
+        
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+        
+        .social-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-button i {
+            font-size: 1.2rem;
+        }
+        
+        .social-button.facebook i {
+            color: #3b5998;
+        }
+        
+        .social-button.google i {
+            color: #db4437;
+        }
+        
+        .social-button.apple i {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Estrelas Bartender</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="drinks.html">Carta de Drinks</a></li>
+                    <li><a href="agendamento.html">Agendamento</a></li>
+                    <li><a href="faq.html">Dúvidas</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="cadastro.html" class="btn btn-register">Cadastro</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h2>Login</h2>
+                    <p>Acesse sua conta para continuar</p>
+                </div>
+                
+                <form class="auth-form" id="login-form">
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="senha">Senha</label>
+                        <input type="password" id="senha" name="senha" required>
+                    </div>
+                    
+                    <div class="forgot-password">
+                        <a href="#">Esqueceu a senha?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Entrar</button>
+                </form>
+                
+                <div class="social-login">
+                    <p>Ou entre com</p>
+                    <div class="social-buttons">
+                        <a href="#" class="social-button facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-button google">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a href="#" class="social-button apple">
+                            <i class="fab fa-apple"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="auth-footer">
+                    <p>Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Estrelas Bartender</h3>
+                    <p>Experiência única em drinks e coquetéis</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="drinks.html">Carta de Drinks</a></li>
+                        <li><a href="agendamento.html">Agendamento</a></li>
+                        <li><a href="faq.html">Dúvidas</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> contato@estrelasbartender.com</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <div class="social-media">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Estrelas Bartender. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="chat-widget">
+        <div class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h4>Atendimento 24h</h4>
+                <span class="close-chat"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="chat-body">
+                <div class="chat-message bot">
+                    <div class="message-content">
+                        <p>Olá! Sou Lucas, como posso ajudar você hoje?</p>
+                    </div>
+                </div>
+                <!-- Mensagens do chat aparecerão aqui -->
+            </div>
+            <div class="chat-footer">
+                <input type="text" placeholder="Digite sua mensagem...">
+                <button class="send-message"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Script específico para a página de login
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('login-form');
+            
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Validação do formulário
+                    const email = document.getElementById('email').value;
+                    const senha = document.getElementById('senha').value;
+                    
+                    // Simulação de login (em um cenário real, isso seria feito com uma requisição ao servidor)
+                    if (email && senha) {
+                        alert('Login realizado com sucesso! Você será redirecionado para a página inicial.');
+                        
+                        // Redirecionamento para a página inicial
+                        setTimeout(function() {
+                            window.location.href = 'index.html';
+                        }, 1000);
+                    } else {
+                        alert('Por favor, preencha todos os campos.');
+                    }
+                });
+            }
+            
+            // Funcionalidade para os botões de login social
+            const socialButtons = document.querySelectorAll('.social-button');
+            
+            if (socialButtons.length > 0) {
+                socialButtons.forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Simulação de login social
+                        let provider = '';
+                        
+                        if (this.classList.contains('facebook')) {
+                            provider = 'Facebook';
+                        } else if (this.classList.contains('google')) {
+                            provider = 'Google';
+                        } else if (this.classList.contains('apple')) {
+                            provider = 'Apple';
+                        }
+                        
+                        alert(`Login com ${provider} iniciado. Esta funcionalidade estaria conectada ao provedor em um ambiente de produção.`);
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

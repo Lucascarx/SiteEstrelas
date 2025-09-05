@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dúvidas Frequentes - Estrelas Bartender</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para a página de FAQ */
+        .faq-container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .faq-header h2 {
+            color: #1d3557;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .faq-search {
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .faq-search input {
+            width: 100%;
+            padding: 15px 20px 15px 45px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-search input:focus {
+            border-color: #1d3557;
+            outline: none;
+            box-shadow: 0 0 10px rgba(29, 53, 87, 0.1);
+        }
+        
+        .faq-search i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .category-btn {
+            padding: 8px 15px;
+            background-color: #f1faee;
+            color: #1d3557;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: #1d3557;
+            color: #fff;
+        }
+        
+        .faq-list {
+            margin-top: 30px;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .faq-question {
+            padding: 15px 20px;
+            background-color: #f1faee;
+            color: #1d3557;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background-color: #e6f2e9;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-color: #fff;
+        }
+        
+        .faq-answer.active {
+            padding: 20px;
+            max-height: 1000px;
+        }
+        
+        .faq-answer p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .faq-answer p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .faq-answer ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        
+        .faq-answer ul li {
+            margin-bottom: 8px;
+            list-style-type: disc;
+        }
+        
+        .faq-contact {
+            margin-top: 50px;
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        .faq-contact h3 {
+            color: #1d3557;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .faq-contact p {
+            margin-bottom: 20px;
+        }
+        
+        .contact-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-option {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f1faee;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-option:hover {
+            background-color: #e6f2e9;
+            transform: translateY(-3px);
+        }
+        
+        .contact-option i {
+            margin-right: 10px;
+            color: #e63946;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Estrelas Bartender</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="drinks.html">Carta de Drinks</a></li>
+                    <li><a href="agendamento.html">Agendamento</a></li>
+                    <li><a href="faq.html">Dúvidas</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="cadastro.html" class="btn btn-register">Cadastro</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="faq-container">
+                <div class="faq-header">
+                    <h2>Dúvidas Frequentes</h2>
+                    <p>Encontre respostas para as perguntas mais comuns sobre nossos serviços</p>
+                </div>
+                
+                <div class="faq-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="faq-search" placeholder="Buscar dúvidas...">
+                </div>
+                
+                <div class="faq-categories">
+                    <button class="category-btn active" data-category="all">Todas</button>
+                    <button class="category-btn" data-category="servicos">Serviços</button>
+                    <button class="category-btn" data-category="agendamento">Agendamento</button>
+                    <button class="category-btn" data-category="drinks">Drinks</button>
+                    <button class="category-btn" data-category="pagamento">Pagamento</button>
+                </div>
+                
+                <div class="faq-list">
+                    <!-- Serviços -->
+                    <div class="faq-item" data-category="servicos">
+                        <div class="faq-question">
+                            <span>Quais serviços a Estrelas Bartender oferece?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>A Estrelas Bartender oferece uma variedade de serviços para eventos, incluindo:</p>
+                            <ul>
+                                <li>Serviço completo de bartender para eventos</li>
+                                <li>Criação de cartas de drinks personalizadas</li>
+                                <li>Consultoria para montagem de bares</li>
+                                <li>Workshops e cursos de coquetelaria</li>
+                                <li>Aluguel de equipamentos para bar</li>
+                                <li>Fornecimento de insumos e bebidas</li>
+                            </ul>
+                            <p>Todos os nossos serviços podem ser personalizados de acordo com as necessidades do seu evento.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="servicos">
+                        <div class="faq-question">
+                            <span>Qual é a área de atendimento da Estrelas Bartender?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Atendemos principalmente na região metropolitana de São Paulo, mas também realizamos eventos em outras cidades e estados mediante consulta prévia. Para eventos fora da região metropolitana, pode haver custos adicionais de deslocamento e hospedagem da equipe.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="servicos">
+                        <div class="faq-question">
+                            <span>Quantos bartenders são necessários para o meu evento?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>A quantidade de bartenders depende do número de convidados e do tipo de serviço desejado. Como regra geral, recomendamos:</p>
+                            <ul>
+                                <li>Até 50 convidados: 1 bartender</li>
+                                <li>De 50 a 100 convidados: 2 bartenders</li>
+                                <li>De 100 a 200 convidados: 3 bartenders</li>
+                                <li>Acima de 200 convidados: 1 bartender adicional para cada 70-100 convidados</li>
+                            </ul>
+                            <p>Durante a consulta inicial, podemos ajudar a determinar o número ideal de profissionais para o seu evento específico.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Agendamento -->
+                    <div class="faq-item" data-category="agendamento">
+                        <div class="faq-question">
+                            <span>Como funciona o processo de agendamento?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>O processo de agendamento é simples e consiste nas seguintes etapas:</p>
+                            <ol>
+                                <li>Preencha o formulário de agendamento em nosso site ou entre em contato por telefone/e-mail</li>
+                                <li>Realizamos uma conversa inicial (online ou presencial) para entender suas necessidades</li>
+                                <li>Elaboramos uma proposta personalizada com opções de drinks e serviços</li>
+                                <li>Após aprovação da proposta, é feito um contrato e o pagamento de sinal para reserva da data</li>
+                                <li>Realizamos uma reunião final de alinhamento alguns dias antes do evento</li>
+                                <li>No dia do evento, nossa equipe chega com antecedência para montagem e preparação</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="agendamento">
+                        <div class="faq-question">
+                            <span>Com quanto tempo de antecedência devo agendar o serviço?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Recomendamos que o agendamento seja feito com pelo menos 30 dias de antecedência, especialmente para eventos em datas comemorativas ou na alta temporada (outubro a março). Para eventos de grande porte ou em datas muito concorridas (como Réveillon, Natal, etc.), o ideal é fazer a reserva com 2 a 3 meses de antecedência.</p>
+                            <p>No entanto, também atendemos solicitações de última hora, sujeitas à disponibilidade da equipe. Entre em contato conosco para verificarmos a possibilidade.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="agendamento">
+                        <div class="faq-question">
+                            <span>É possível cancelar ou reagendar um serviço já contratado?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sim, é possível cancelar ou reagendar um serviço, mas existem algumas condições:</p>
+                            <ul>
+                                <li>Cancelamentos com mais de 30 dias de antecedência: devolução de 70% do valor do sinal</li>
+                                <li>Cancelamentos entre 15 e 30 dias de antecedência: devolução de 50% do valor do sinal</li>
+                                <li>Cancelamentos com menos de 15 dias de antecedência: não há devolução do sinal</li>
+                            </ul>
+                            <p>Para reagendamentos, tentamos ser o mais flexíveis possível, mas dependemos da disponibilidade da equipe na nova data. Reagendamentos devem ser solicitados com pelo menos 15 dias de antecedência.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Drinks -->
+                    <div class="faq-item" data-category="drinks">
+                        <div class="faq-question">
+                            <span>Posso personalizar a carta de drinks para o meu evento?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sim, absolutamente! A personalização da carta de drinks é um dos nossos diferenciais. Durante a consulta inicial, conversamos sobre suas preferências, o perfil dos convidados e o tema do evento para criar uma seleção de drinks que combine perfeitamente com a ocasião.</p>
+                            <p>Podemos criar drinks exclusivos com nomes especiais relacionados ao evento ou aos anfitriões, além de adaptar receitas clássicas para atender a gostos específicos ou restrições alimentares.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="drinks">
+                        <div class="faq-question">
+                            <span>Vocês oferecem opções de drinks sem álcool?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sim, temos uma ampla variedade de opções de drinks sem álcool (mocktails) que são tão sofisticados e saborosos quanto os coquetéis alcoólicos. Nossos bartenders são especializados em criar bebidas não alcoólicas criativas e refrescantes, perfeitas para quem não consome álcool, gestantes, crianças e adolescentes.</p>
+                            <p>Também podemos adaptar muitos dos nossos coquetéis clássicos para versões sem álcool, mantendo o sabor e a apresentação visual.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="drinks">
+                        <div class="faq-question">
+                            <span>Como funciona o fornecimento de bebidas e insumos?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Oferecemos duas modalidades de serviço:</p>
+                            <ul>
+                                <li><strong>Serviço completo:</strong> fornecemos todas as bebidas, insumos, gelo, copos e equipamentos necessários. Você não precisa se preocupar com nada.</li>
+                                <li><strong>Serviço de bartender:</strong> você fornece as bebidas e insumos principais, e nós trazemos os equipamentos, utensílios e alguns insumos específicos para coquetelaria.</li>
+                            </ul>
+                            <p>Em ambos os casos, enviamos previamente uma lista detalhada de tudo o que será utilizado, com quantidades estimadas baseadas no número de convidados e duração do evento.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagamento -->
+                    <div class="faq-item" data-category="pagamento">
+                        <div class="faq-question">
+                            <span>Quais são as formas de pagamento aceitas?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Aceitamos diversas formas de pagamento para sua conveniência:</p>
+                            <ul>
+                                <li>Transferência bancária (PIX)</li>
+                                <li>Cartão de crédito (parcelamento em até 3x sem juros)</li>
+                                <li>Cartão de débito</li>
+                                <li>Dinheiro</li>
+                            </ul>
+                            <p>O pagamento é dividido em duas partes: um sinal de 50% no momento da contratação para garantir a reserva da data, e o restante até 3 dias antes do evento.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="pagamento">
+                        <div class="faq-question">
+                            <span>Como é calculado o valor do serviço?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>O valor do serviço é calculado com base em diversos fatores:</p>
+                            <ul>
+                                <li>Número de convidados</li>
+                                <li>Duração do evento</li>
+                                <li>Quantidade de bartenders necessários</li>
+                                <li>Complexidade dos drinks oferecidos</li>
+                                <li>Fornecimento ou não de bebidas e insumos</li>
+                                <li>Localização do evento (pode haver taxa de deslocamento)</li>
+                                <li>Necessidade de equipamentos especiais</li>
+                            </ul>
+                            <p>Após a consulta inicial, elaboramos um orçamento detalhado e transparente, discriminando todos os itens incluídos no serviço.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" data-category="pagamento">
+                        <div class="faq-question">
+                            <span>Há cobrança de taxa de serviço?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sim, cobramos uma taxa de serviço de 10% sobre o valor total, que é destinada à equipe que trabalhará no evento. Esta taxa já está incluída nos orçamentos que enviamos.</p>
+                            <p>Importante ressaltar que não é necessário dar gorjetas adicionais aos bartenders durante o evento, mas caso queira demonstrar sua satisfação com o serviço, isso fica a seu critério.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-contact">
+                    <h3>Não encontrou o que procurava?</h3>
+                    <p>Entre em contato conosco por um dos canais abaixo ou converse com nossos agentes online 24h.</p>
+                    <div class="contact-options">
+                        <a href="mailto:contato@estrelasbartender.com" class="contact-option">
+                            <i class="fas fa-envelope"></i>
+                            <span>E-mail</span>
+                        </a>
+                        <a href="tel:+551199999999" class="contact-option">
+                            <i class="fas fa-phone"></i>
+                            <span>Telefone</span>
+                        </a>
+                        <a href="https://wa.me/551199999999" class="contact-option">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Estrelas Bartender</h3>
+                    <p>Experiência única em drinks e coquetéis</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="drinks.html">Carta de Drinks</a></li>
+                        <li><a href="agendamento.html">Agendamento</a></li>
+                        <li><a href="faq.html">Dúvidas</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> contato@estrelasbartender.com</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <div class="social-media">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Estrelas Bartender. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="chat-widget">
+        <div class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h4>Atendimento 24h</h4>
+                <span class="close-chat"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="chat-body">
+                <div class="chat-message bot">
+                    <div class="message-content">
+                        <p>Olá! Sou Lucas, como posso ajudar você hoje?</p>
+                    </div>
+                </div>
+                <!-- Mensagens do chat aparecerão aqui -->
+            </div>
+            <div class="chat-footer">
+                <input type="text" placeholder="Digite sua mensagem...">
+                <button class="send-message"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Script específico para a página de FAQ
+        document.addEventListener('DOMContentLoaded', function() {
+            // Funcionalidade de acordeão para as perguntas
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    // Toggle da classe active na pergunta
+                    this.classList.toggle('active');
+                    
+                    // Toggle da classe active na resposta
+                    const answer = this.nextElementSibling;
+                    answer.classList.toggle('active');
+                });
+            });
+            
+            // Funcionalidade de filtro por categoria
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remover classe active de todos os botões
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Adicionar classe active ao botão clicado
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // Filtrar os itens de FAQ
+                    faqItems.forEach(item => {
+                        if (category === 'all' || item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Funcionalidade de busca
+            const searchInput = document.getElementById('faq-search');
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    
+                    // Se o campo de busca estiver vazio, mostrar todos os itens da categoria selecionada
+                    if (searchTerm === '') {
+                        const activeCategory = document.querySelector('.category-btn.active').getAttribute('data-category');
+                        
+                        faqItems.forEach(item => {
+                            if (activeCategory === 'all' || item.getAttribute('data-category') === activeCategory) {
+                                item.style.display = 'block';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                        
+                        return;
+                    }
+                    
+                    // Filtrar os itens de FAQ com base no termo de busca
+                    faqItems.forEach(item => {
+                        const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                        
+                        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - Estrelas Bartender</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para a página de perfil */
+        .profile-header {
+            background-color: #1d3557;
+            color: #fff;
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+        
+        .profile-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .profile-header p {
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .profile-content {
+            padding: 50px 0;
+        }
+        
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+        
+        .profile-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-tab.active {
+            color: #1d3557;
+        }
+        
+        .profile-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #1d3557;
+        }
+        
+        .profile-tab:hover {
+            color: #1d3557;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .profile-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .profile-card h3 {
+            color: #1d3557;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .profile-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .avatar-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(29, 53, 87, 0.7);
+            padding: 5px;
+            text-align: center;
+            color: #fff;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .avatar-overlay:hover {
+            background-color: rgba(29, 53, 87, 0.9);
+        }
+        
+        .profile-details {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .profile-field {
+            margin-bottom: 20px;
+        }
+        
+        .profile-field label {
+            display: block;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .profile-field p {
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .profile-field input,
+        .profile-field select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .profile-field input:focus,
+        .profile-field select:focus {
+            border-color: #1d3557;
+            outline: none;
+        }
+        
+        .edit-profile-btn {
+            background-color: transparent;
+            color: #1d3557;
+            border: 1px solid #1d3557;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .edit-profile-btn:hover {
+            background-color: #1d3557;
+            color: #fff;
+        }
+        
+        .save-profile-btn {
+            background-color: #1d3557;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .save-profile-btn:hover {
+            background-color: #152a45;
+            transform: translateY(-2px);
+        }
+        
+        .cancel-edit-btn {
+            background-color: #f1f1f1;
+            color: #666;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            margin-left: 10px;
+        }
+        
+        .cancel-edit-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .appointment-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .appointment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .appointment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .appointment-date {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1d3557;
+        }
+        
+        .appointment-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .appointment-details {
+            margin-bottom: 15px;
+        }
+        
+        .appointment-detail {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .appointment-detail i {
+            color: #1d3557;
+            margin-right: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .appointment-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .appointment-btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-reschedule {
+            background-color: #f1faee;
+            color: #1d3557;
+            border: 1px solid #1d3557;
+        }
+        
+        .btn-reschedule:hover {
+            background-color: #1d3557;
+            color: #fff;
+        }
+        
+        .btn-cancel {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .btn-cancel:hover {
+            background-color: #721c24;
+            color: #fff;
+            border-color: #721c24;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h4 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .empty-state p {
+            color: #999;
+            margin-bottom: 20px;
+        }
+        
+        .btn-schedule-now {
+            background-color: #1d3557;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-schedule-now:hover {
+            background-color: #152a45;
+            transform: translateY(-2px);
+        }
+        
+        .favorite-drink {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .favorite-drink:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .favorite-drink img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .favorite-drink-info {
+            flex: 1;
+        }
+        
+        .favorite-drink-info h4 {
+            color: #1d3557;
+            margin-bottom: 5px;
+        }
+        
+        .favorite-drink-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .favorite-drink-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .favorite-drink-btn {
+            background-color: transparent;
+            border: none;
+            color: #1d3557;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .favorite-drink-btn:hover {
+            color: #e63946;
+            transform: scale(1.1);
+        }
+        
+        .security-form {
+            max-width: 600px;
+        }
+        
+        .notification-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .notification-option:last-child {
+            border-bottom: none;
+        }
+        
+        .notification-info h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .notification-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: #1d3557;
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .profile-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .profile-tab {
+                flex: 1 0 auto;
+                text-align: center;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .profile-info {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .appointment-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .appointment-status {
+                margin-top: 10px;
+            }
+            
+            .appointment-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .appointment-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Estrelas Bartender</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="drinks.html">Carta de Drinks</a></li>
+                    <li><a href="agendamento.html">Agendamento</a></li>
+                    <li><a href="faq.html">Dúvidas</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="perfil.html" class="btn btn-login">Meu Perfil</a>
+                <a href="index.html" class="btn btn-register btn-logout">Sair</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="profile-header">
+        <div class="container">
+            <h2>Meu Perfil</h2>
+            <p>Gerencie suas informações pessoais, agendamentos e preferências</p>
+        </div>
+    </div>
+
+    <main>
+        <div class="container">
+            <div class="profile-tabs">
+                <div class="profile-tab active" data-tab="personal-info">Informações Pessoais</div>
+                <div class="profile-tab" data-tab="appointments">Meus Agendamentos</div>
+                <div class="profile-tab" data-tab="favorites">Drinks Favoritos</div>
+                <div class="profile-tab" data-tab="security">Segurança</div>
+                <div class="profile-tab" data-tab="notifications">Notificações</div>
+            </div>
+            
+            <div class="profile-content">
+                <!-- Aba de Informações Pessoais -->
+                <div class="tab-content active" id="personal-info">
+                    <div class="profile-card">
+                        <h3>Informações Pessoais</h3>
+                        
+                        <div class="profile-info">
+                            <div class="profile-avatar">
+                                <img src="https://via.placeholder.com/150" alt="Foto de Perfil">
+                                <div class="avatar-overlay">Alterar foto</div>
+                            </div>
+                            
+                            <div class="profile-details" id="profile-view">
+                                <div class="profile-field">
+                                    <label>Nome Completo</label>
+                                    <p>João da Silva</p>
+                                </div>
+                                
+                                <div class="profile-field">
+                                    <label>E-mail</label>
+                                    <p>joao.silva@email.com</p>
+                                </div>
+                                
+                                <div class="profile-field">
+                                    <label>Telefone</label>
+                                    <p>(11) 99999-9999</p>
+                                </div>
+                                
+                                <div class="profile-field">
+                                    <label>Data de Nascimento</label>
+                                    <p>15/05/1985</p>
+                                </div>
+                                
+                                <div class="profile-field">
+                                    <label>Endereço</label>
+                                    <p>Av. Paulista, 1000, Apto 123, Bela Vista, São Paulo - SP</p>
+                                </div>
+                                
+                                <button class="edit-profile-btn" id="edit-profile-btn">Editar Informações</button>
+                            </div>
+                            
+                            <div class="profile-details" id="profile-edit" style="display: none;">
+                                <div class="profile-field">
+                                    <label for="name">Nome Completo</label>
+                                    <input type="text" id="name" value="João da Silva">
+                                </div>
+                                
+                                <div class="profile-field">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" id="email" value="joao.silva@email.com">
+                                </div>
+                                
+                                <div class="profile-field">
+                                    <label for="phone">Telefone</label>
+                                    <input type="tel" id="phone" value="(11) 99999-9999">
+                                </div>
+                                
+                                <div class="profile-field">
+                                    <label for="birthdate">Data de Nascimento</label>
+                                    <input type="date" id="birthdate" value="1985-05-15">
+                                </div>
+                                
+                                <div class="profile-field">
+                                    <label for="address">Endereço</label>
+                                    <input type="text" id="address" value="Av. Paulista, 1000, Apto 123, Bela Vista, São Paulo - SP">
+                                </div>
+                                
+                                <div>
+                                    <button class="save-profile-btn" id="save-profile-btn">Salvar Alterações</button>
+                                    <button class="cancel-edit-btn" id="cancel-edit-btn">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aba de Agendamentos -->
+                <div class="tab-content" id="appointments">
+                    <div class="profile-card">
+                        <h3>Meus Agendamentos</h3>
+                        
+                        <div class="appointment-card">
+                            <div class="appointment-header">
+                                <div class="appointment-date">15 de Julho, 2023 - 19:00</div>
+                                <div class="appointment-status status-confirmed">Confirmado</div>
+                            </div>
+                            
+                            <div class="appointment-details">
+                                <div class="appointment-detail">
+                                    <i class="fas fa-user"></i>
+                                    <span>Bartender: Lucas</span>
+                                </div>
+                                
+                                <div class="appointment-detail">
+                                    <i class="fas fa-glass-martini-alt"></i>
+                                    <span>Tipo: Workshop de Coquetéis</span>
+                                </div>
+                                
+                                <div class="appointment-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Local: Av. Paulista, 1000 - São Paulo</span>
+                                </div>
+                                
+                                <div class="appointment-detail">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Observações: Workshop para 5 pessoas com foco em drinks clássicos</span>
+                                </div>
+                            </div>
+                            
+                            <div class="appointment-actions">
+                                <button class="appointment-btn btn-reschedule">Reagendar</button>
+                                <button class="appointment-btn btn-cancel">Cancelar</button>
+                            </div>
+                        </div>
+                        
+                        <div class="appointment-card">
+                            <div class="appointment-header">
+                                <div class="appointment-date">10 de Agosto, 2023 - 20:00</div>
+                                <div class="appointment-status status-pending">Pendente</div>
+                            </div>
+                            
+                            <div class="appointment-details">
+                                <div class="appointment-detail">
+                                    <i class="fas fa-user"></i>
+                                    <span>Bartender: Sonia</span>
+                                </div>
+                                
+                                <div class="appointment-detail">
+                                    <i class="fas fa-glass-martini-alt"></i>
+                                    <span>Tipo: Evento Privado</span>
+                                </div>
+                                
+                                <div class="appointment-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Local: Rua Augusta, 500 - São Paulo</span>
+                                </div>
+                                
+                                <div class="appointment-detail">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Observações: Aniversário de 30 anos, aproximadamente 20 convidados</span>
+                                </div>
+                            </div>
+                            
+                            <div class="appointment-actions">
+                                <button class="appointment-btn btn-reschedule">Reagendar</button>
+                                <button class="appointment-btn btn-cancel">Cancelar</button>
+                            </div>
+                        </div>
+                        
+                        <div class="appointment-card">
+                            <div class="appointment-header">
+                                <div class="appointment-date">05 de Junho, 2023 - 18:30</div>
+                                <div class="appointment-status status-cancelled">Cancelado</div>
+                            </div>
+                            
+                            <div class="appointment-details">
+                                <div class="appointment-detail">
+                                    <i class="fas fa-user"></i>
+                                    <span>Bartender: Lucas</span>
+                                </div>
+                                
+                                <div class="appointment-detail">
+                                    <i class="fas fa-glass-martini-alt"></i>
+                                    <span>Tipo: Consultoria de Bar</span>
+                                </div>
+                                
+                                <div class="appointment-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Local: Online (Videoconferência)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="appointment-actions">
+                                <button class="appointment-btn btn-reschedule">Reagendar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aba de Drinks Favoritos -->
+                <div class="tab-content" id="favorites">
+                    <div class="profile-card">
+                        <h3>Meus Drinks Favoritos</h3>
+                        
+                        <div class="favorite-drink">
+                            <img src="https://via.placeholder.com/80" alt="Mojito">
+                            <div class="favorite-drink-info">
+                                <h4>Mojito</h4>
+                                <p>Rum, hortelã, limão, açúcar e água com gás</p>
+                                <p><strong>Base:</strong> Rum</p>
+                            </div>
+                            <div class="favorite-drink-actions">
+                                <button class="favorite-drink-btn"><i class="fas fa-heart"></i></button>
+                                <button class="favorite-drink-btn"><i class="fas fa-info-circle"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="favorite-drink">
+                            <img src="https://via.placeholder.com/80" alt="Negroni">
+                            <div class="favorite-drink-info">
+                                <h4>Negroni</h4>
+                                <p>Gin, Campari e vermute tinto</p>
+                                <p><strong>Base:</strong> Gin</p>
+                            </div>
+                            <div class="favorite-drink-actions">
+                                <button class="favorite-drink-btn"><i class="fas fa-heart"></i></button>
+                                <button class="favorite-drink-btn"><i class="fas fa-info-circle"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="favorite-drink">
+                            <img src="https://via.placeholder.com/80" alt="Old Fashioned">
+                            <div class="favorite-drink-info">
+                                <h4>Old Fashioned</h4>
+                                <p>Bourbon, açúcar, angostura e casca de laranja</p>
+                                <p><strong>Base:</strong> Whiskey</p>
+                            </div>
+                            <div class="favorite-drink-actions">
+                                <button class="favorite-drink-btn"><i class="fas fa-heart"></i></button>
+                                <button class="favorite-drink-btn"><i class="fas fa-info-circle"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="favorite-drink">
+                            <img src="https://via.placeholder.com/80" alt="Margarita">
+                            <div class="favorite-drink-info">
+                                <h4>Margarita</h4>
+                                <p>Tequila, licor de laranja e suco de limão</p>
+                                <p><strong>Base:</strong> Tequila</p>
+                            </div>
+                            <div class="favorite-drink-actions">
+                                <button class="favorite-drink-btn"><i class="fas fa-heart"></i></button>
+                                <button class="favorite-drink-btn"><i class="fas fa-info-circle"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aba de Segurança -->
+                <div class="tab-content" id="security">
+                    <div class="profile-card">
+                        <h3>Segurança da Conta</h3>
+                        
+                        <div class="security-form">
+                            <div class="profile-field">
+                                <label for="current-password">Senha Atual</label>
+                                <input type="password" id="current-password">
+                            </div>
+                            
+                            <div class="profile-field">
+                                <label for="new-password">Nova Senha</label>
+                                <input type="password" id="new-password">
+                            </div>
+                            
+                            <div class="profile-field">
+                                <label for="confirm-password">Confirmar Nova Senha</label>
+                                <input type="password" id="confirm-password">
+                            </div>
+                            
+                            <button class="save-profile-btn" id="change-password-btn">Alterar Senha</button>
+                        </div>
+                        
+                        <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
+                        
+                        <h4 style="color: #1d3557; margin-bottom: 20px;">Verificação em Duas Etapas</h4>
+                        
+                        <div class="profile-field">
+                            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                <div style="flex: 1;">
+                                    <p style="font-weight: 500; color: #333; margin-bottom: 5px;">Ativar verificação em duas etapas</p>
+                                    <p style="color: #666; font-size: 0.9rem;">Adicione uma camada extra de segurança à sua conta</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Aba de Notificações -->
+                <div class="tab-content" id="notifications">
+                    <div class="profile-card">
+                        <h3>Preferências de Notificação</h3>
+                        
+                        <div class="notification-option">
+                            <div class="notification-info">
+                                <h4>E-mails de Confirmação</h4>
+                                <p>Receba confirmações por e-mail para agendamentos e alterações</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="notification-option">
+                            <div class="notification-info">
+                                <h4>Lembretes de Agendamento</h4>
+                                <p>Receba lembretes 24h antes dos seus agendamentos</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="notification-option">
+                            <div class="notification-info">
+                                <h4>Novidades e Promoções</h4>
+                                <p>Fique por dentro das novidades, eventos e promoções especiais</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="notification-option">
+                            <div class="notification-info">
+                                <h4>Novos Drinks e Receitas</h4>
+                                <p>Receba atualizações quando novos drinks forem adicionados ao catálogo</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="notification-option">
+                            <div class="notification-info">
+                                <h4>Notificações por WhatsApp</h4>
+                                <p>Receba confirmações e lembretes via WhatsApp</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Estrelas Bartender</h3>
+                    <p>Experiência única em drinks e coquetéis</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="drinks.html">Carta de Drinks</a></li>
+                        <li><a href="agendamento.html">Agendamento</a></li>
+                        <li><a href="faq.html">Dúvidas</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> contato@estrelasbartender.com</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <div class="social-media">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Estrelas Bartender. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="chat-widget">
+        <div class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h4>Atendimento 24h</h4>
+                <span class="close-chat"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="chat-body">
+                <div class="chat-message bot">
+                    <div class="message-content">
+                        <p>Olá! Sou Lucas, como posso ajudar você hoje?</p>
+                    </div>
+                </div>
+                <!-- Mensagens do chat aparecerão aqui -->
+            </div>
+            <div class="chat-footer">
+                <input type="text" placeholder="Digite sua mensagem...">
+                <button class="send-message"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Script específico para a página de perfil
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navegação entre abas
+            const tabs = document.querySelectorAll('.profile-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remover classe ativa de todas as abas
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Adicionar classe ativa à aba clicada
+                    this.classList.add('active');
+                    
+                    // Mostrar o conteúdo correspondente
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Edição de perfil
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            const saveProfileBtn = document.getElementById('save-profile-btn');
+            const cancelEditBtn = document.getElementById('cancel-edit-btn');
+            const profileView = document.getElementById('profile-view');
+            const profileEdit = document.getElementById('profile-edit');
+            
+            if (editProfileBtn && saveProfileBtn && cancelEditBtn && profileView && profileEdit) {
+                editProfileBtn.addEventListener('click', function() {
+                    profileView.style.display = 'none';
+                    profileEdit.style.display = 'block';
+                });
+                
+                saveProfileBtn.addEventListener('click', function() {
+                    // Simulação de salvamento
+                    profileView.style.display = 'block';
+                    profileEdit.style.display = 'none';
+                    
+                    // Atualizar os dados visíveis
+                    const nameInput = document.getElementById('name').value;
+                    const emailInput = document.getElementById('email').value;
+                    const phoneInput = document.getElementById('phone').value;
+                    const birthdateInput = document.getElementById('birthdate').value;
+                    const addressInput = document.getElementById('address').value;
+                    
+                    // Converter data para formato brasileiro
+                    const dateParts = birthdateInput.split('-');
+                    const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                    
+                    // Atualizar os campos de visualização
+                    profileView.querySelector('p:nth-of-type(1)').textContent = nameInput;
+                    profileView.querySelector('p:nth-of-type(2)').textContent = emailInput;
+                    profileView.querySelector('p:nth-of-type(3)').textContent = phoneInput;
+                    profileView.querySelector('p:nth-of-type(4)').textContent = formattedDate;
+                    profileView.querySelector('p:nth-of-type(5)').textContent = addressInput;
+                    
+                    alert('Informações atualizadas com sucesso!');
+                });
+                
+                cancelEditBtn.addEventListener('click', function() {
+                    profileView.style.display = 'block';
+                    profileEdit.style.display = 'none';
+                });
+            }
+            
+            // Alteração de senha
+            const changePasswordBtn = document.getElementById('change-password-btn');
+            
+            if (changePasswordBtn) {
+                changePasswordBtn.addEventListener('click', function() {
+                    const currentPassword = document.getElementById('current-password').value;
+                    const newPassword = document.getElementById('new-password').value;
+                    const confirmPassword = document.getElementById('confirm-password').value;
+                    
+                    if (!currentPassword || !newPassword || !confirmPassword) {
+                        alert('Por favor, preencha todos os campos.');
+                        return;
+                    }
+                    
+                    if (newPassword !== confirmPassword) {
+                        alert('A nova senha e a confirmação não coincidem.');
+                        return;
+                    }
+                    
+                    // Simulação de alteração de senha
+                    alert('Senha alterada com sucesso!');
+                    
+                    // Limpar campos
+                    document.getElementById('current-password').value = '';
+                    document.getElementById('new-password').value = '';
+                    document.getElementById('confirm-password').value = '';
+                });
+            }
+            
+            // Botões de reagendamento e cancelamento
+            const rescheduleButtons = document.querySelectorAll('.btn-reschedule');
+            const cancelButtons = document.querySelectorAll('.btn-cancel');
+            
+            rescheduleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const appointmentCard = this.closest('.appointment-card');
+                    const appointmentDate = appointmentCard.querySelector('.appointment-date').textContent;
+                    
+                    alert(`Você será redirecionado para reagendar o compromisso de ${appointmentDate}`);
+                    window.location.href = 'agendamento.html';
+                });
+            });
+            
+            cancelButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const appointmentCard = this.closest('.appointment-card');
+                    const appointmentDate = appointmentCard.querySelector('.appointment-date').textContent;
+                    
+                    if (confirm(`Tem certeza que deseja cancelar o compromisso de ${appointmentDate}?`)) {
+                        // Simulação de cancelamento
+                        appointmentCard.querySelector('.appointment-status').className = 'appointment-status status-cancelled';
+                        appointmentCard.querySelector('.appointment-status').textContent = 'Cancelado';
+                        
+                        // Remover botão de cancelamento
+                        this.remove();
+                        
+                        alert('Agendamento cancelado com sucesso!');
+                    }
+                });
+            });
+            
+            // Botões de favoritos
+            const favoriteButtons = document.querySelectorAll('.favorite-drink-btn:nth-child(1)');
+            
+            favoriteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const drinkCard = this.closest('.favorite-drink');
+                    const drinkName = drinkCard.querySelector('h4').textContent;
+                    
+                    if (confirm(`Deseja remover ${drinkName} dos favoritos?`)) {
+                        drinkCard.style.opacity = '0.5';
+                        setTimeout(() => {
+                            drinkCard.remove();
+                        }, 500);
+                    }
+                });
+            });
+            
+            // Botões de informação
+            const infoButtons = document.querySelectorAll('.favorite-drink-btn:nth-child(2)');
+            
+            infoButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const drinkCard = this.closest('.favorite-drink');
+                    const drinkName = drinkCard.querySelector('h4').textContent;
+                    
+                    alert(`Você será redirecionado para a página de detalhes de ${drinkName}`);
+                    // Redirecionamento simulado
+                    // window.location.href = `drinks.html?drink=${drinkName}`;
+                });
+            });
+            
+            // Toggles de notificação
+            const toggleSwitches = document.querySelectorAll('.toggle-switch input');
+            
+            toggleSwitches.forEach(toggle => {
+                toggle.addEventListener('change', function() {
+                    const notificationName = this.closest('.notification-option').querySelector('h4').textContent;
+                    const status = this.checked ? 'ativadas' : 'desativadas';
+                    
+                    console.log(`Notificações de "${notificationName}" foram ${status}`);
+                });
+            });
+            
+            // Máscara para o campo de telefone
+            const phoneInput = document.getElementById('phone');
+            
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    
+                    if (value.length > 0) {
+                        // Formato: (XX) XXXXX-XXXX
+                        if (value.length <= 2) {
+                            value = `(${value}`;
+                        } else if (value.length <= 7) {
+                            value = `(${value.substring(0, 2)}) ${value.substring(2)}`;
+                        } else if (value.length <= 11) {
+                            value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}-${value.substring(7)}`;
+                        } else {
+                            value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}-${value.substring(7, 11)}`;
+                        }
+                    }
+                    
+                    e.target.value = value;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

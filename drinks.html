@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta de Drinks - Estrelas Bartender</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para a página de drinks */
+        .drinks-header {
+            text-align: center;
+            padding: 80px 0 40px;
+            background-color: #1d3557;
+            color: #fff;
+        }
+        
+        .drinks-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .drinks-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .drinks-filter {
+            background-color: #f1faee;
+            padding: 20px 0;
+            position: sticky;
+            top: 70px;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .filter-label {
+            margin-right: 10px;
+            font-weight: 500;
+            color: #1d3557;
+        }
+        
+        .filter-options {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .filter-btn {
+            padding: 8px 15px;
+            background-color: #fff;
+            color: #1d3557;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: #1d3557;
+            color: #fff;
+            border-color: #1d3557;
+        }
+        
+        .drinks-search {
+            margin: 0 15px;
+            position: relative;
+            min-width: 250px;
+        }
+        
+        .drinks-search input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .drinks-search i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        
+        .drinks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 50px 0;
+        }
+        
+        .drink-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .drink-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .drink-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .drink-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .drink-card:hover .drink-image img {
+            transform: scale(1.05);
+        }
+        
+        .drink-tags {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .drink-tag {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .tag-alcoholic {
+            background-color: #e63946;
+            color: #fff;
+        }
+        
+        .tag-non-alcoholic {
+            background-color: #2a9d8f;
+            color: #fff;
+        }
+        
+        .tag-signature {
+            background-color: #f4a261;
+            color: #fff;
+        }
+        
+        .tag-classic {
+            background-color: #457b9d;
+            color: #fff;
+        }
+        
+        .drink-info {
+            padding: 20px;
+        }
+        
+        .drink-name {
+            font-size: 1.3rem;
+            color: #1d3557;
+            margin-bottom: 10px;
+        }
+        
+        .drink-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .drink-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .drink-price {
+            font-weight: 600;
+            color: #1d3557;
+            font-size: 1.1rem;
+        }
+        
+        .drink-rating {
+            display: flex;
+            align-items: center;
+        }
+        
+        .drink-rating i {
+            color: #f4a261;
+            margin-right: 5px;
+        }
+        
+        .drink-ingredients {
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .drink-ingredients span {
+            font-weight: 500;
+            color: #1d3557;
+        }
+        
+        .drink-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .drink-btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .btn-details {
+            background-color: #f1faee;
+            color: #1d3557;
+            border: 1px solid #1d3557;
+        }
+        
+        .btn-details:hover {
+            background-color: #e6f2e9;
+        }
+        
+        .btn-favorite {
+            background-color: #fff;
+            color: #e63946;
+            border: 1px solid #e63946;
+        }
+        
+        .btn-favorite:hover,
+        .btn-favorite.active {
+            background-color: #e63946;
+            color: #fff;
+        }
+        
+        .btn-favorite i {
+            margin-right: 5px;
+        }
+        
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 0;
+            color: #666;
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .no-results h3 {
+            font-size: 1.5rem;
+            color: #1d3557;
+            margin-bottom: 10px;
+        }
+        
+        /* Modal de detalhes do drink */
+        .drink-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            margin: 50px auto;
+            max-width: 800px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.3);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-header {
+            position: relative;
+            height: 300px;
+        }
+        
+        .modal-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .modal-header-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 20px 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: #fff;
+        }
+        
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .modal-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-section {
+            margin-bottom: 30px;
+        }
+        
+        .modal-section-title {
+            font-size: 1.3rem;
+            color: #1d3557;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-description {
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .ingredients-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .ingredient-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .ingredient-item i {
+            color: #e63946;
+            margin-right: 10px;
+        }
+        
+        .preparation-steps {
+            counter-reset: step-counter;
+        }
+        
+        .preparation-step {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 20px;
+            counter-increment: step-counter;
+        }
+        
+        .preparation-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background-color: #1d3557;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .modal-footer {
+            padding: 20px 30px;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1d3557;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-order {
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+        }
+        
+        .btn-order:hover {
+            background-color: #d62c3b;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .drinks-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .filter-container {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 0 15px;
+            }
+            
+            .filter-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .filter-label {
+                margin-bottom: 5px;
+            }
+            
+            .filter-options {
+                flex-wrap: wrap;
+                width: 100%;
+            }
+            
+            .drinks-search {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .modal-content {
+                margin: 20px;
+                width: auto;
+            }
+            
+            .modal-header {
+                height: 200px;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+            
+            .ingredients-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Estrelas Bartender</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="drinks.html">Carta de Drinks</a></li>
+                    <li><a href="agendamento.html">Agendamento</a></li>
+                    <li><a href="faq.html">Dúvidas</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-login">Login</a>
+                <a href="cadastro.html" class="btn btn-register">Cadastro</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="drinks-header">
+        <div class="container">
+            <h2>Nossa Carta de Drinks</h2>
+            <p>Descubra nossa seleção exclusiva de coquetéis clássicos e criações autorais, preparados com ingredientes premium e técnicas de mixologia de alta qualidade.</p>
+        </div>
+    </div>
+
+    <div class="drinks-filter">
+        <div class="container">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <div class="filter-label">Categoria:</div>
+                    <div class="filter-options">
+                        <button class="filter-btn active" data-filter="all">Todos</button>
+                        <button class="filter-btn" data-filter="classic">Clássicos</button>
+                        <button class="filter-btn" data-filter="signature">Autorais</button>
+                        <button class="filter-btn" data-filter="tropical">Tropicais</button>
+                        <button class="filter-btn" data-filter="mocktail">Sem Álcool</button>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-label">Base:</div>
+                    <div class="filter-options">
+                        <button class="filter-btn active" data-base="all">Todas</button>
+                        <button class="filter-btn" data-base="vodka">Vodka</button>
+                        <button class="filter-btn" data-base="gin">Gin</button>
+                        <button class="filter-btn" data-base="rum">Rum</button>
+                        <button class="filter-btn" data-base="tequila">Tequila</button>
+                        <button class="filter-btn" data-base="whiskey">Whiskey</button>
+                        <button class="filter-btn" data-base="cachaca">Cachaça</button>
+                    </div>
+                </div>
+                
+                <div class="drinks-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="drinks-search" placeholder="Buscar drinks...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="container">
+            <div class="drinks-grid" id="drinks-grid">
+                <!-- Clássicos -->
+                <div class="drink-card" data-category="classic" data-base="gin">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?negroni" alt="Negroni">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-alcoholic">Alcoólico</span>
+                            <span class="drink-tag tag-classic">Clássico</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Negroni</h3>
+                        <p class="drink-description">Um clássico italiano equilibrado e amargo, perfeito para os apreciadores de sabores intensos.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Gin, Campari, Vermute Tinto
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 32,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="1">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="drink-card" data-category="classic" data-base="whiskey">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?oldfashioned" alt="Old Fashioned">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-alcoholic">Alcoólico</span>
+                            <span class="drink-tag tag-classic">Clássico</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Old Fashioned</h3>
+                        <p class="drink-description">Um dos coquetéis mais antigos, com sabor rico de whiskey realçado por um toque de açúcar e bitters.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Bourbon, Açúcar, Angostura Bitters
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 34,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="2">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="drink-card" data-category="classic" data-base="rum">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?mojito" alt="Mojito">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-alcoholic">Alcoólico</span>
+                            <span class="drink-tag tag-classic">Clássico</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Mojito</h3>
+                        <p class="drink-description">Refrescante coquetel cubano com rum, limão e hortelã, perfeito para dias quentes.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Rum Branco, Limão, Hortelã, Açúcar, Água com Gás
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 28,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="3">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="drink-card" data-category="classic" data-base="vodka">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?cosmopolitan" alt="Cosmopolitan">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-alcoholic">Alcoólico</span>
+                            <span class="drink-tag tag-classic">Clássico</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Cosmopolitan</h3>
+                        <p class="drink-description">Elegante e sofisticado, com um equilíbrio perfeito entre doce e ácido, com notas cítricas.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Vodka, Cointreau, Suco de Cranberry, Limão
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 30,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.6</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="4">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Autorais -->
+                <div class="drink-card" data-category="signature" data-base="cachaca">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?caipirinha" alt="Caipirinha Estrelar">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-alcoholic">Alcoólico</span>
+                            <span class="drink-tag tag-signature">Autoral</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Caipirinha Estrelar</h3>
+                        <p class="drink-description">Nossa versão especial da caipirinha tradicional, com frutas vermelhas e um toque de espumante.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Cachaça Premium, Frutas Vermelhas, Espumante, Açúcar
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 36,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="5">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="drink-card" data-category="signature" data-base="gin">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?gin" alt="Constelação Gin">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-alcoholic">Alcoólico</span>
+                            <span class="drink-tag tag-signature">Autoral</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Constelação Gin</h3>
+                        <p class="drink-description">Gin tônica elevado ao próximo nível, com infusão de ervas aromáticas e frutas cítricas.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Gin, Água Tônica, Infusão de Ervas, Frutas Cítricas
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 38,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="6">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="drink-card" data-category="signature" data-base="whiskey">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?whiskey" alt="Nebulosa Whiskey">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-alcoholic">Alcoólico</span>
+                            <span class="drink-tag tag-signature">Autoral</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Nebulosa Whiskey</h3>
+                        <p class="drink-description">Uma criação exclusiva com whiskey defumado, xarope de bordo e bitters caseiros.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Whiskey Defumado, Xarope de Bordo, Bitters Caseiros
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 42,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="7">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tropicais -->
+                <div class="drink-card" data-category="tropical" data-base="rum">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?pinacolada" alt="Piña Colada">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-alcoholic">Alcoólico</span>
+                            <span class="drink-tag tag-classic">Tropical</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Piña Colada</h3>
+                        <p class="drink-description">Coquetel tropical cremoso com rum, coco e abacaxi, que transporta você diretamente para o Caribe.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Rum Branco, Leite de Coco, Suco de Abacaxi
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 32,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="8">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="drink-card" data-category="tropical" data-base="tequila">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?margarita" alt="Margarita Tropical">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-alcoholic">Alcoólico</span>
+                            <span class="drink-tag tag-classic">Tropical</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Margarita Tropical</h3>
+                        <p class="drink-description">Margarita com um toque tropical de manga e maracujá, refrescante e exótica.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Tequila, Cointreau, Limão, Manga, Maracujá
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 34,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="9">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sem Álcool -->
+                <div class="drink-card" data-category="mocktail" data-base="all">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?mocktail" alt="Estrela Cadente">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-non-alcoholic">Sem Álcool</span>
+                            <span class="drink-tag tag-signature">Autoral</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Estrela Cadente</h3>
+                        <p class="drink-description">Mocktail refrescante com frutas vermelhas, limão e um toque de hortelã, finalizado com água com gás.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Frutas Vermelhas, Limão, Hortelã, Xarope de Açúcar, Água com Gás
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 26,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.6</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="10">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="drink-card" data-category="mocktail" data-base="all">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?lemonade" alt="Via Láctea">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-non-alcoholic">Sem Álcool</span>
+                            <span class="drink-tag tag-signature">Autoral</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Via Láctea</h3>
+                        <p class="drink-description">Mocktail cremoso com coco, abacaxi e um toque de baunilha, decorado com canela em pó.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Leite de Coco, Abacaxi, Baunilha, Canela
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 28,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="11">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="drink-card" data-category="mocktail" data-base="all">
+                    <div class="drink-image">
+                        <img src="https://source.unsplash.com/random/600x400/?icedtea" alt="Supernova">
+                        <div class="drink-tags">
+                            <span class="drink-tag tag-non-alcoholic">Sem Álcool</span>
+                            <span class="drink-tag tag-signature">Autoral</span>
+                        </div>
+                    </div>
+                    <div class="drink-info">
+                        <h3 class="drink-name">Supernova</h3>
+                        <p class="drink-description">Chá gelado com infusão de frutas cítricas, gengibre e um toque de mel, servido com gelo.</p>
+                        <div class="drink-ingredients">
+                            <span>Ingredientes:</span> Chá Verde, Frutas Cítricas, Gengibre, Mel
+                        </div>
+                        <div class="drink-meta">
+                            <div class="drink-price">R$ 24,00</div>
+                            <div class="drink-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.5</span>
+                            </div>
+                        </div>
+                        <div class="drink-actions">
+                            <a href="#" class="drink-btn btn-details" data-drink-id="12">Ver Detalhes</a>
+                            <a href="#" class="drink-btn btn-favorite"><i class="far fa-heart"></i> Favorito</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template para "Nenhum resultado encontrado" -->
+                <div class="no-results" style="display: none;">
+                    <i class="fas fa-cocktail"></i>
+                    <h3>Nenhum drink encontrado</h3>
+                    <p>Tente ajustar seus filtros ou buscar por outro termo.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de detalhes do drink -->
+    <div class="drink-modal" id="drink-modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <div class="modal-header">
+                <img src="https://source.unsplash.com/random/800x500/?cocktail" alt="Drink" id="modal-image">
+                <div class="modal-header-overlay">
+                    <h2 class="modal-title" id="modal-title">Nome do Drink</h2>
+                    <div class="modal-tags" id="modal-tags">
+                        <!-- Tags serão inseridas aqui -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Descrição</h3>
+                    <p class="modal-description" id="modal-description">Descrição detalhada do drink.</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Ingredientes</h3>
+                    <div class="ingredients-list" id="modal-ingredients">
+                        <!-- Ingredientes serão inseridos aqui -->
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Modo de Preparo</h3>
+                    <div class="preparation-steps" id="modal-preparation">
+                        <!-- Passos de preparação serão inseridos aqui -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-price" id="modal-price">R$ 32,00</div>
+                <div class="modal-actions">
+                    <button class="modal-btn btn-favorite" id="modal-favorite"><i class="far fa-heart"></i> Adicionar aos Favoritos</button>
+                    <button class="modal-btn btn-order">Pedir em Evento</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Estrelas Bartender</h3>
+                    <p>Experiência única em drinks e coquetéis</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="drinks.html">Carta de Drinks</a></li>
+                        <li><a href="agendamento.html">Agendamento</a></li>
+                        <li><a href="faq.html">Dúvidas</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> contato@estrelasbartender.com</p>
+                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+                    <div class="social-media">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Estrelas Bartender. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="chat-widget">
+        <div class="chat-toggle">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h4>Atendimento 24h</h4>
+                <span class="close-chat"><i class="fas fa-times"></i></span>
+            </div>
+            <div class="chat-body">
+                <div class="chat-message bot">
+                    <div class="message-content">
+                        <p>Olá! Sou Lucas, como posso ajudar você hoje?</p>
+                    </div>
+                </div>
+                <!-- Mensagens do chat aparecerão aqui -->
+            </div>
+            <div class="chat-footer">
+                <input type="text" placeholder="Digite sua mensagem...">
+                <button class="send-message"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Script específico para a página de drinks
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filtro por categoria
+            const categoryButtons = document.querySelectorAll('.filter-btn[data-filter]');
+            const baseButtons = document.querySelectorAll('.filter-btn[data-base]');
+            const drinkCards = document.querySelectorAll('.drink-card');
+            const noResults = document.querySelector('.no-results');
+            const searchInput = document.getElementById('drinks-search');
+            
+            // Função para filtrar os drinks
+            function filterDrinks() {
+                const activeCategory = document.querySelector('.filter-btn[data-filter].active').getAttribute('data-filter');
+                const activeBase = document.querySelector('.filter-btn[data-base].active').getAttribute('data-base');
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                let visibleCount = 0;
+                
+                drinkCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    const base = card.getAttribute('data-base');
+                    const name = card.querySelector('.drink-name').textContent.toLowerCase();
+                    const description = card.querySelector('.drink-description').textContent.toLowerCase();
+                    const ingredients = card.querySelector('.drink-ingredients').textContent.toLowerCase();
+                    
+                    const matchesCategory = activeCategory === 'all' || category === activeCategory;
+                    const matchesBase = activeBase === 'all' || base === activeBase;
+                    const matchesSearch = searchTerm === '' || 
+                                         name.includes(searchTerm) || 
+                                         description.includes(searchTerm) || 
+                                         ingredients.includes(searchTerm);
+                    
+                    if (matchesCategory && matchesBase && matchesSearch) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Mostrar ou esconder a mensagem de "Nenhum resultado encontrado"
+                if (visibleCount === 0) {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                }
+            }
+            
+            // Event listeners para os botões de categoria
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    filterDrinks();
+                });
+            });
+            
+            // Event listeners para os botões de base
+            baseButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    baseButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    filterDrinks();
+                });
+            });
+            
+            // Event listener para o campo de busca
+            searchInput.addEventListener('input', filterDrinks);
+            
+            // Modal de detalhes do drink
+            const modal = document.getElementById('drink-modal');
+            const modalClose = document.getElementById('modal-close');
+            const detailButtons = document.querySelectorAll('.btn-details');
+            
+            // Dados dos drinks (simulação de banco de dados)
+            const drinksData = {
+                1: { // Negroni
+                    name: "Negroni",
+                    image: "https://source.unsplash.com/random/800x500/?negroni",
+                    tags: [{class: "tag-alcoholic", text: "Alcoólico"}, {class: "tag-classic", text: "Clássico"}],
+                    description: "O Negroni é um coquetel clássico italiano que surgiu em Florença por volta de 1919. Conta a lenda que o Conde Camillo Negroni pediu ao bartender que fortalecesse seu Americano (Campari, vermute e água com gás) substituindo a água por gin. O resultado foi este coquetel equilibrado, amargo e complexo que se tornou um dos mais apreciados no mundo da coquetelaria.",
+                    ingredients: ["30ml de Gin London Dry", "30ml de Campari", "30ml de Vermute Tinto", "Casca de laranja para decorar"],
+                    preparation: [
+                        "Adicione todos os ingredientes em um copo baixo com gelo.",
+                        "Mexa por aproximadamente 15 segundos para diluir e resfriar.",
+                        "Decore com uma casca de laranja, espremendo levemente sobre o drink para liberar os óleos essenciais."
+                    ],
+                    price: "R$ 32,00"
+                },
+                2: { // Old Fashioned
+                    name: "Old Fashioned",
+                    image: "https://source.unsplash.com/random/800x500/?oldfashioned",
+                    tags: [{class: "tag-alcoholic", text: "Alcoólico"}, {class: "tag-classic", text: "Clássico"}],
+                    description: "O Old Fashioned é considerado um dos primeiros coquetéis da história, datando do início do século XIX. É a definição perfeita do que um coquetel deve ser: bebida destilada, açúcar, água e bitters. Simples, elegante e sofisticado, realça o sabor do whiskey com um toque de doçura e complexidade aromática.",
+                    ingredients: ["60ml de Bourbon ou Whiskey Rye", "1 torrão de açúcar ou 10ml de xarope simples", "2-3 dashes de Angostura Bitters", "Casca de laranja", "Gelo em cubos"],
+                    preparation: [
+                        "Em um copo baixo, adicione o açúcar (ou xarope) e os bitters.",
+                        "Se usar açúcar em torrão, adicione algumas gotas de água e macere até dissolver.",
+                        "Adicione alguns cubos de gelo e o whiskey.",
+                        "Mexa suavemente por cerca de 20 segundos.",
+                        "Decore com uma casca de laranja, espremendo levemente sobre o drink."
+                    ],
+                    price: "R$ 34,00"
+                },
+                3: { // Mojito
+                    name: "Mojito",
+                    image: "https://source.unsplash.com/random/800x500/?mojito",
+                    tags: [{class: "tag-alcoholic", text: "Alcoólico"}, {class: "tag-classic", text: "Clássico"}],
+                    description: "Originário de Cuba, o Mojito é um coquetel refrescante e aromático que ganhou popularidade mundial. Combina o sabor do rum com a acidez do limão, a doçura do açúcar e o aroma refrescante da hortelã. É a escolha perfeita para dias quentes e celebrações ao ar livre.",
+                    ingredients: ["60ml de Rum Branco", "30ml de suco de limão fresco", "2 colheres de açúcar", "8-10 folhas de hortelã", "Água com gás", "Gelo"],
+                    preparation: [
+                        "Em um copo alto, adicione as folhas de hortelã e o açúcar.",
+                        "Macere suavemente para liberar os óleos da hortelã, sem despedaçar as folhas.",
+                        "Adicione o suco de limão e complete com gelo.",
+                        "Despeje o rum e complete com água com gás.",
+                        "Mexa delicadamente e decore com um ramo de hortelã e uma rodela de limão."
+                    ],
+                    price: "R$ 28,00"
+                },
+                // Adicione mais drinks conforme necessário
+                10: { // Estrela Cadente (Mocktail)
+                    name: "Estrela Cadente",
+                    image: "https://source.unsplash.com/random/800x500/?mocktail",
+                    tags: [{class: "tag-non-alcoholic", text: "Sem Álcool"}, {class: "tag-signature", text: "Autoral"}],
+                    description: "O Estrela Cadente é nossa criação exclusiva para quem busca uma experiência refrescante sem álcool. Combinando frutas vermelhas frescas com cítricos e um toque de hortelã, este mocktail oferece uma explosão de sabores e uma apresentação visual deslumbrante, remetendo ao céu estrelado.",
+                    ingredients: ["60ml de purê de frutas vermelhas (morango, framboesa e amora)", "30ml de suco de limão siciliano", "20ml de xarope de açúcar", "8-10 folhas de hortelã", "Água com gás", "Gelo"],
+                    preparation: [
+                        "Em uma coqueteleira, adicione as frutas vermelhas e macere levemente.",
+                        "Adicione as folhas de hortelã (reserve algumas para decoração) e macere suavemente.",
+                        "Adicione o suco de limão, o xarope de açúcar e gelo.",
+                        "Agite vigorosamente por cerca de 15 segundos.",
+                        "Coe em um copo longo com gelo fresco.",
+                        "Complete com água com gás e mexa suavemente.",
+                        "Decore com frutas vermelhas frescas e um ramo de hortelã."
+                    ],
+                    price: "R$ 26,00"
+                }
+            };
+            
+            // Função para abrir o modal com os detalhes do drink
+            function openDrinkModal(drinkId) {
+                const drink = drinksData[drinkId];
+                
+                if (!drink) return;
+                
+                // Preencher os dados do modal
+                document.getElementById('modal-title').textContent = drink.name;
+                document.getElementById('modal-image').src = drink.image;
+                document.getElementById('modal-description').textContent = drink.description;
+                document.getElementById('modal-price').textContent = drink.price;
+                
+                // Limpar e preencher as tags
+                const tagsContainer = document.getElementById('modal-tags');
+                tagsContainer.innerHTML = '';
+                drink.tags.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = `drink-tag ${tag.class}`;
+                    tagElement.textContent = tag.text;
+                    tagsContainer.appendChild(tagElement);
+                });
+                
+                // Limpar e preencher os ingredientes
+                const ingredientsContainer = document.getElementById('modal-ingredients');
+                ingredientsContainer.innerHTML = '';
+                drink.ingredients.forEach(ingredient => {
+                    const ingredientElement = document.createElement('div');
+                    ingredientElement.className = 'ingredient-item';
+                    ingredientElement.innerHTML = `<i class="fas fa-check"></i> ${ingredient}`;
+                    ingredientsContainer.appendChild(ingredientElement);
+                });
+                
+                // Limpar e preencher os passos de preparação
+                const preparationContainer = document.getElementById('modal-preparation');
+                preparationContainer.innerHTML = '';
+                drink.preparation.forEach(step => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'preparation-step';
+                    stepElement.textContent = step;
+                    preparationContainer.appendChild(stepElement);
+                });
+                
+                // Exibir o modal
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Impedir rolagem da página
+            }
+            
+            // Event listeners para os botões de detalhes
+            detailButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const drinkId = this.getAttribute('data-drink-id');
+                    openDrinkModal(drinkId);
+                });
+            });
+            
+            // Fechar o modal
+            modalClose.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restaurar rolagem da página
+            });
+            
+            // Fechar o modal ao clicar fora dele
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Funcionalidade de favoritos
+            const favoriteButtons = document.querySelectorAll('.btn-favorite');
+            
+            favoriteButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.classList.toggle('active');
+                    
+                    if (this.classList.contains('active')) {
+                        this.innerHTML = '<i class="fas fa-heart"></i> Favorito';
+                    } else {
+                        this.innerHTML = '<i class="far fa-heart"></i> Favorito';
+                    }
+                });
+            });
+            
+            // Favorito no modal
+            const modalFavorite = document.getElementById('modal-favorite');
+            
+            modalFavorite.addEventListener('click', function() {
+                this.classList.toggle('active');
+                
+                if (this.classList.contains('active')) {
+                    this.innerHTML = '<i class="fas fa-heart"></i> Remover dos Favoritos';
+                } else {
+                    this.innerHTML = '<i class="far fa-heart"></i> Adicionar aos Favoritos';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
