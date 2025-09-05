@@ -83,4 +83,4 @@ O sistema de agendamento permite:
 
 ---
 
-© 2023 Estrelas Bartender. Todos os direitos reservados.
+© 2025 Estrelas Bartender. Todos os direitos reservados.
